@@ -1,3 +1,2 @@
 ---
-- src: geerlingguy.packer-debian
-- src: geerlingguy.nfs
+- name: it-praktyk.packer-debian
