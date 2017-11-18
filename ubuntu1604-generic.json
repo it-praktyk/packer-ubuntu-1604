@@ -2,7 +2,8 @@
     "variables": {
       "wait_for_reboot_UNUSED": "30s",
       "perform_dist_upgrade": "true",
-      "vmware_install_open_vm_tools": "false"
+      "vmware_install_open_vm_tools": "false",
+      "uninstall_ansible": "false"
     },
     "provisioners": [
       {
@@ -23,7 +24,7 @@
       },
       {
         "type": "shell",
-        "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}' '{{user `perform_dist_upgrade`}}' ",
+        "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}' '{{user `perform_dist_upgrade`}}'",
         "script": "scripts/dist-upgrade.sh",
         "pause_before": "40s"
       },
@@ -42,7 +43,7 @@
       },
       {
         "type": "shell",
-        "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+        "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}' '{{user `uninstall_ansible`}}'",
         "script": "scripts/cleanup.sh"
       }
     ],

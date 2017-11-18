@@ -1,11 +1,13 @@
 #!/bin/bash -eux
-
-# Uninstall Ansible and dependencies, remove added Ansible repository, clean apt caches
-apt-get -y remove --purge ansible
-apt-add-repository --remove ppa:ansible/ansible
-apt-get update
-apt-get -y autoremove
-apt-get clean
+if [ $1 == "true" ];
+    # Uninstall Ansible and dependencies, remove added Ansible repository, clean apt caches
+    apt-get -qq -y remove --purge ansible
+    apt-add-repository --remove ppa:ansible/ansible
+    apt-get -qq update
+    apt-get -y -qq autoremove
+    apt-get clean
+else echo "Ansible will  not be uninstalled uninstall_ansible <>  true."
+fi
 
 #Remove older linux kernels - source: https://askubuntu.com/posts/254585/revisions
 echo $(dpkg --list | grep linux-image | awk '{ print $2 }' | sort -V | sed -n '/'`uname -r`'/q;p') $(dpkg --list | grep linux-headers | awk '{ print $2 }' | sort -V | sed -n '/'"$(uname -r | sed "s/\([0-9.-]*\)-\([^0-9]\+\)/\1/")"'/q;p') | xargs sudo apt-get -y purge
@@ -28,14 +30,14 @@ count=`df --sync -kP / | tail -n1  | awk -F ' ' '{print $4}'`
 let count--
 dd if=/dev/zero of=/tmp/whitespace bs=1024 count=$count
 rm /tmp/whitespace
- 
+
 # Whiteout /boot
 echo "Free space on /boot is zeroed. Please wait."
 count=`df --sync -kP /boot | tail -n1 | awk -F ' ' '{print $4}'`
 let count--
 dd if=/dev/zero of=/boot/whitespace bs=1024 count=$count
 rm /boot/whitespace
- 
+
 swappart=`cat /proc/swaps | tail -n1 | awk -F ' ' '{print $1}'`
 swapoff $swappart
 dd if=/dev/zero of=$swappart
@@ -44,4 +46,3 @@ swapon $swappart
 
 # Add `sync` so Packer doesn't quit too early, before the large file is deleted.
 sync
-
