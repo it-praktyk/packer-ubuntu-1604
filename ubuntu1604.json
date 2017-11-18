@@ -1,7 +1,8 @@
 {
 
   "variables": {
-    "perform_dist_upgrade": "true"
+    "perform_dist_upgrade": "true",
+    "vmware_install_open_vm_tools": "false"
   },
   "provisioners": [
     {
@@ -34,7 +35,8 @@
     {
       "type": "ansible-local",
       "playbook_file": "ansible/main.yml",
-      "galaxy_file": "requirements.yml"
+      "galaxy_file": "requirements.yml",
+      "extra_arguments": ["--extra-vars \"vmware_install_open_vm_tools={{user `vmware_install_open_vm_tools`}}\""]
     },
     {
       "type": "shell",
