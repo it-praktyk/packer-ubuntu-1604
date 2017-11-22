@@ -1,11 +1,8 @@
-# Packer Example - Ubuntu 16.04 minimal Vagrant Box
+# Packer Ubuntu 16.04 minimal Vagrant Box
 
 **Current Ubuntu Version Used**: 16.04.3
 
 **Pre-built Vagrant Box**:
-
-  - [`vagrant init geerlingguy/ubuntu1604`](https://vagrantcloud.com/geerlingguy/boxes/ubuntu1604)
-  - See older versions: http://files.midwesternmac.com/
 
 This example build configuration installs and configures Ubuntu 16.04 x86_64 minimal using Ansible, and then generates two Vagrant box files, for:
 
@@ -31,7 +28,7 @@ The following software must be installed/present on your local machine before yo
 Make sure all the required software (listed above) is installed, then cd to the directory containing this README.md file, and run:
 
 ```bash
-    $ packer build ubuntu1604.json
+    $ packer build ubuntu1604-generic.json
 ```
 
 After a few minutes, Packer should tell you the box was generated successfully.
@@ -101,3 +98,5 @@ MIT license.
 ## Author Information
 
 Created in 2016 by [Jeff Geerling](http://jeffgeerling.com/), author of [Ansible for DevOps](http://ansiblefordevops.com/).
+
+Extended and currently maintained by Wojciech Sciesinski.

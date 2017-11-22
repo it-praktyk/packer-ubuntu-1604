@@ -1,12 +1,13 @@
 #!/bin/bash -eux
-if [ $1 == "true" ];
+if [ $1 == "true" ]; then
     # Uninstall Ansible and dependencies, remove added Ansible repository, clean apt caches
     apt-get -qq -y remove --purge ansible
     apt-add-repository --remove ppa:ansible/ansible
     apt-get -qq update
     apt-get -y -qq autoremove
     apt-get clean
-else echo "Ansible will  not be uninstalled uninstall_ansible <>  true."
+else
+    echo "Ansible will not be uninstalled uninstall_ansible <> true."
 fi
 
 #Remove older linux kernels - source: https://askubuntu.com/posts/254585/revisions

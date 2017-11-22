@@ -1,2 +1,2 @@
 ---
-- name: it-praktyk.packer-debian
+- src: it-praktyk.packer-debian

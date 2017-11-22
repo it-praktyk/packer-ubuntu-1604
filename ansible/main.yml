@@ -4,12 +4,14 @@
   gather_facts: yes
 
   roles:
-    - { role: geerlingguy.packer-debian, vmware_install_open_vm_tools: '{{vmware_install_open_vm_tools}}' }
+    - { role: it-praktyk.packer-debian, vmware_install_open_vm_tools: '{{vmware_install_open_vm_tools}}' }
 
   tasks:
 
     - name: Install packages
-      apt: "name={{ item }} state=installed"
+      apt:
+        name: "{{ item }}"
+        state: installed
       with_items:
         - git
         - wget
